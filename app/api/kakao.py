@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
 from app.storage.redis import load_user
-from app.models.weapon import get_weapon, get_grade
+import app.data.callup as data_callup
 from app.services.enhance import enhance_weapon
 
 router = APIRouter()
@@ -56,15 +56,15 @@ def 강화응답(result_text: str):
 
 def 프로필응답(user_id: str):
     state = load_user(user_id)
-    weapon = get_weapon(state["weapon_key"])
-    grade = get_grade(state["grade"])
+    weapon = data_callup.weapon(state["weapon_key"])
+    level = data_callup.level(state["level"])
     return {
         "version": "2.0",
         "template": {
             "outputs": [
                 {
                     "simpleText": {
-                        "text": f"+{grade.key} {grade.name} {weapon.name} 보유중"
+                        "text": f"+{level.key} {level.name} {weapon.name} 보유중"
                     }
                 }
             ]

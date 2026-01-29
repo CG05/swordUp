@@ -6,7 +6,7 @@ import json
 _user_store = {
     "test": {
         "weapon_key": "sword1",
-        "grade": 0
+        "level": 0
     }
 }
 
@@ -20,7 +20,7 @@ def load_user(user_id: str) -> dict:
     if user_id not in _user_store:
         _user_store[user_id] = {
             "weapon_key": "sword1",
-            "grade": 0
+            "level": 0
         }
     return _user_store[user_id]
     #data = redis.get(user_id)
