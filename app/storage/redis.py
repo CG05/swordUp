@@ -1,6 +1,6 @@
 import redis
 import os
-from app.models.weapon import Weapon
+from app.models.weapon import WeaponCategory
 import json
 
 _user_store = {

@@ -24,15 +24,21 @@ def level(level: int) -> Level:
 def add_chance(level: int, tier: EnhanceTier) -> float:
     add = 0.00
     if tier == EnhanceTier.LOW:
-        add = (level-10) * 0.05
+        add = (10 - level) * 0.05
     elif tier == EnhanceTier.MID:
-        add = (level-17) * 0.07
+        add = (17 - level) * 0.07
     return add
 
 def enhance_chance(category: WeaponCategory, level: int) -> Chance:
     tier = enhance_tier(level)
+    print(f"Enhance tier for level {level} is {tier}")
     chance = CHANCES[category][tier]
+    print(f"Base chance for category {category} and tier {tier}: {chance}")
+
+    copy_chance = chance.__dict__.copy()
     if category == WeaponCategory.NORMAL:
         add = add_chance(level, tier)
-        chance.up += add
-    return chance
+        copy_chance["up"] = copy_chance["up"] + add
+        print(f"Added chance: {add} to UP for level {level} in tier {tier}")
+        print(f"New UP chance: {copy_chance['up']}")
+    return Chance(**copy_chance)
