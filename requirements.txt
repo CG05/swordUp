@@ -3,4 +3,3 @@ uvicorn
 redis
 python-dotenv
 pydantic
-nginx
